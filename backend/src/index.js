@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const connect = require("./src/configs/db");
-const userController = require("./src/controllers/userControl");
+const connect = require("./configs/db")
+const userController = require("./controllers/user.controller");
 
 
 
@@ -12,11 +12,13 @@ app.use(cors());
 
 app.use("/auth", userController);
 
-// app.listen to start server
-app.listen(6000, async (req, res) => {
+const port = process.env.PORT || 8000;
+
+app.listen(port, async (req, res) => {
   try {
     await connect();
+    console.log(`listening to port ${port}`)
   } catch (err) {
-    console.log("port not connected",err);
+    console.log("error connecting in port",err);
   }
 });
